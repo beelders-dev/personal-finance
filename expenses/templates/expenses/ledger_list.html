@@ -1,0 +1,11 @@
+<ol>
+  {% for item in ledger_list %}
+
+  <li>
+    <a href="{% url 'expenses:ledger_detail' ledger_id=item.id  %}"
+      >{{ item.name }}</a
+    >
+  </li>
+
+  {% endfor %}
+</ol>

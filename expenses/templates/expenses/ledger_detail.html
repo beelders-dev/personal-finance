@@ -1,0 +1,5 @@
+<h1>Name: {{ ledger.name }}</h1>
+<h1>Id: {{ ledger.id }}</h2>
+
+    <a href="{% url 'expenses:add_item' ledger.id %}">+ Add item</a>
+    {% include 'expenses/expenseitem_list.html' with expenseitem_list=ledger.items.all %}
