@@ -1,14 +1,16 @@
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import (
+    ListView,
+    CreateView,
+    DetailView,
+    UpdateView,
+    DeleteView,
+)
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 
 from .models import ExpenseItem, Ledger
 
 # Create your views here.
-
-
-class Expenses(ListView):
-    model = ExpenseItem
 
 
 class Ledgers(ListView):
@@ -32,9 +34,14 @@ class LedgerCreateView(CreateView):
     model = Ledger
     fields = ["name"]
 
+    def get_success_url(self):
+        return reverse_lazy(
+            "expenses:ledger_detail", kwargs={"ledger_id": self.object.id}
+        )
 
-def get_success_url(self):
-    return reverse_lazy("expenses:ledger_detail", kwargs={"ledger_id": self.object.id})
+
+class Expenses(ListView):
+    model = ExpenseItem
 
 
 class ExpenseCreateView(CreateView):
@@ -50,6 +57,39 @@ class ExpenseCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context["ledger"] = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
 
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "expenses:ledger_detail", kwargs={"ledger_id": self.kwargs["ledger_id"]}
+        )
+
+
+class ExpenseUpdateView(UpdateView):
+    model = ExpenseItem
+    fields = ["name", "qty", "price"]
+
+    pk_url_kwarg = "pk"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["ledger"] = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "expenses:ledger_detail", kwargs={"ledger_id": self.kwargs["ledger_id"]}
+        )
+
+
+class ExpenseDelete(DeleteView):
+    model = ExpenseItem
+
+    pk_url_kwarg = "pk"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["ledger"] = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
         return context
 
     def get_success_url(self):

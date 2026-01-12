@@ -1,19 +1,28 @@
 <table>
   <thead>
     <tr>
+      <th>Date created</th>
       <th>Name</th>
       <th>Price</th>
       <th>Qty</th>
-      <th>Date created</th>
+      <th>Amt</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     {% for item in expenseitem_list %}
     <tr>
+      <td>{{ item.created_at }}</td>
       <td>{{ item.name }}</td>
       <td>{{ item.price }}</td>
       <td>{{ item.qty }}</td>
-      <td>{{ item.created_at }}</td>
+      <td>{{ item.total }}</td>
+      <td>
+        <a href="{% url 'expenses:expense_update' ledger.id item.id %}">Edit</a>
+        <a href="{% url 'expenses:expense_delete' ledger.id item.id %}"
+          >Delete</a
+        >
+      </td>
     </tr>
     {% endfor %}
   </tbody>
