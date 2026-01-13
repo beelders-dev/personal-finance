@@ -36,9 +36,7 @@ class LedgerCreateView(CreateView):
     fields = ["name"]
 
     def get_success_url(self):
-        return reverse_lazy(
-            "expenses:ledger_detail", kwargs={"ledger_id": self.object.id}
-        )
+        return reverse_lazy("expenses:ledgers")
 
 
 class ExpenseHomeView(ListView):

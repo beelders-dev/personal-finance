@@ -1,4 +1,6 @@
 {% extends 'expenses/base.html' %} {% block content %}
+
+<a href="{% url 'expenses:ledger_create' %}">Create Ledger</a>
 <ol>
   {% for item in ledger_list %}
 

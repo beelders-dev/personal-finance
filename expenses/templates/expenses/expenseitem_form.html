@@ -1,5 +1,6 @@
 {% extends 'expenses/base.html' %} {% block content %}
 {% include 'expenses/partials/ledger_title.html' %}
+{{ledger_id}}
 <form action="" method="post" class="w-50">
   {% csrf_token %} {{ form.as_p }}
   <input type="submit" value="Add" class="btn btn-primary"/>

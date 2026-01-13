@@ -2,7 +2,7 @@
 <form action="" method="post">
   {% csrf_token %}
   <h2>Are you sure you want to delete</h2>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <td>Date & Time Created</td>
@@ -23,7 +23,7 @@
     </tbody>
   </table>
   {{ form }}
-  <input type="submit" value="Confirm" />
+  <input type="submit" value="Confirm" class="btn btn-primary"/>
   {% include 'expenses/partials/cancel.html' %}
 </form>
 {% endblock %}

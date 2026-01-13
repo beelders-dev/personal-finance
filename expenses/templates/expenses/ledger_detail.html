@@ -4,4 +4,5 @@
 <a href="{% url 'expenses:add_item' ledger.id %}">+ Add item</a>
 
 {% include 'expenses/expenseitem_table.html' with expenseitem_list=ledger.items.all %} 
+<a href="{% url 'expenses:ledgers' %}">Back</a>
 {% endblock %}

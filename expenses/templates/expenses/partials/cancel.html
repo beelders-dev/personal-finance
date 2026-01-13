@@ -1,2 +1,6 @@
 <!-- Cancel button back to the Ledger -->
+ {% if ledger.id %}
 <a href="{% url 'expenses:ledger_detail' ledger.id %}">Cancel</a>
+{% else %}
+<a href="{% url 'expenses:ledgers' %}">Cancel</a>
+{% endif %}
