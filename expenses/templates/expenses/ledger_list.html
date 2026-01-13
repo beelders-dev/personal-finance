@@ -1,3 +1,4 @@
+{% extends 'expenses/base.html' %} {% block content %}
 <ol>
   {% for item in ledger_list %}
 
@@ -9,3 +10,5 @@
 
   {% endfor %}
 </ol>
+
+{% endblock %}

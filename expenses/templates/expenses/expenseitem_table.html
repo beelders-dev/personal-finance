@@ -1,3 +1,4 @@
+{% block content %}
 <table>
   <thead>
     <tr>
@@ -18,8 +19,12 @@
       <td>{{ item.qty }}</td>
       <td>{{ item.total }}</td>
       <td>
-        <a href="{% url 'expenses:expense_update' ledger.id item.id %}">Edit</a>
-        <a href="{% url 'expenses:expense_delete' ledger.id item.id %}"
+        <a
+          href="{% url 'expenses:expense_update' ledger_id=item.ledger.id pk=item.id %}"
+          >Edit</a
+        >
+        <a
+          href="{% url 'expenses:expense_delete' ledger_id=item.ledger.id pk=item.id %}"
           >Delete</a
         >
       </td>
@@ -27,3 +32,4 @@
     {% endfor %}
   </tbody>
 </table>
+{% endblock %}

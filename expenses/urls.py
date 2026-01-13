@@ -1,17 +1,18 @@
 from django.urls import path
 from .views import (
-    Expenses,
+    ExpenseHomeView,
     LedgerCreateView,
     Ledgers,
     LedgerDetailView,
     ExpenseCreateView,
     ExpenseUpdateView,
+    ExpenseDeleteView,
 )
 
 app_name = "expenses"
 
 urlpatterns = [
-    path("", Expenses.as_view(), name="home"),
+    path("", ExpenseHomeView.as_view(), name="home"),
     path(
         "ledgers/<int:ledger_id>/items/add",
         ExpenseCreateView.as_view(),
@@ -24,7 +25,7 @@ urlpatterns = [
     ),
     path(
         "ledgers/<int:ledger_id>/items/<int:pk>/delete",
-        ExpenseUpdateView.as_view(),
+        ExpenseDeleteView.as_view(),
         name="expense_delete",
     ),
     path("ledgers/", Ledgers.as_view(), name="ledgers"),

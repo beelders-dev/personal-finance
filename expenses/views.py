@@ -40,8 +40,9 @@ class LedgerCreateView(CreateView):
         )
 
 
-class Expenses(ListView):
+class ExpenseHomeView(ListView):
     model = ExpenseItem
+    template_name = "expenses/expenses_home.html"
 
 
 class ExpenseCreateView(CreateView):
@@ -82,9 +83,8 @@ class ExpenseUpdateView(UpdateView):
         )
 
 
-class ExpenseDelete(DeleteView):
+class ExpenseDeleteView(DeleteView):
     model = ExpenseItem
-
     pk_url_kwarg = "pk"
 
     def get_context_data(self, **kwargs):
