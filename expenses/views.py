@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 
 from .models import ExpenseItem, Ledger
+from .forms import ExpenseItemForm
 
 # Create your views here.
 
@@ -47,7 +48,7 @@ class ExpenseHomeView(ListView):
 
 class ExpenseCreateView(CreateView):
     model = ExpenseItem
-    fields = ["name", "qty", "price"]
+    form_class = ExpenseItemForm
 
     def form_valid(self, form):
         ledger = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
@@ -68,7 +69,7 @@ class ExpenseCreateView(CreateView):
 
 class ExpenseUpdateView(UpdateView):
     model = ExpenseItem
-    fields = ["name", "qty", "price"]
+    form_class = ExpenseItemForm
 
     pk_url_kwarg = "pk"
 

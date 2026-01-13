@@ -1,5 +1,5 @@
 {% extends 'expenses/base.html' %} {% block content %}
-<h1>Name: {{ ledger.name }}</h1>
+{% include 'expenses/partials/ledger_title.html' %}
 
 <a href="{% url 'expenses:add_item' ledger.id %}">+ Add item</a>
 
