@@ -6,7 +6,7 @@
       <th>Name</th>
       <th>Price</th>
       <th>Qty</th>
-      <th>Amt</th>
+      <th>Amount</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -17,7 +17,7 @@
       <td>{{ item.name }}</td>
       <td>{{ item.price }}</td>
       <td>{{ item.qty }}</td>
-      <td>{{ item.total }}</td>
+      <td>{{ item.amt }}</td>
       <td>
         <a
           href="{% url 'expenses:expense_update' ledger_id=item.ledger.id pk=item.id %}"

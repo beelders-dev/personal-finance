@@ -22,7 +22,7 @@ class ExpenseItem(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     @property
-    def total(self):
+    def amt(self):
         return self.qty * self.price
 
     def __str__(self):
