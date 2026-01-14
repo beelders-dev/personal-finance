@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Sum, F, Count, DecimalField
 
 from .models import ExpenseItem, Ledger
-from .forms import ExpenseItemForm
+from .forms import ExpenseItemForm, LedgerCreateForm
 
 # Create your views here.
 
@@ -42,7 +42,7 @@ class LedgerDetailView(DetailView):
 
 class LedgerCreateView(CreateView):
     model = Ledger
-    fields = ["name"]
+    form_class = LedgerCreateForm
 
     def get_success_url(self):
         return reverse_lazy("expenses:ledgers")
@@ -50,7 +50,8 @@ class LedgerCreateView(CreateView):
 
 class LedgerUpdateView(UpdateView):
     model = Ledger
-    fields = ["name"]
+    form_class = LedgerCreateForm
+
     pk_url_kwarg = "ledger_id"
 
     def get_queryset(self):
