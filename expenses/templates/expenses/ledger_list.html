@@ -1,16 +1,32 @@
 {% extends 'expenses/base.html' %} {% block content %}
 
 <a href="{% url 'expenses:ledger_create' %}">Create Ledger</a>
-<ol>
-  {% for item in ledger_list %}
 
-  <li>
-    <a href="{% url 'expenses:ledger_detail' ledger_id=item.id  %}"
-      >{{ item.name }}</a
-    >
-  </li>
-
+<table class="table">
+  <thead>
+    <tr>
+      <th>Ledger name</th>
+      <th>Total items</th>
+      <th>Total amount</th>
+      <th>Date Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+  {% for ledger in ledger_list %}
+    <tr>
+      <td>
+        <a href="{% url 'expenses:ledger_detail' ledger.id  %}">{{ ledger.name }}</a>
+      </td>
+      <td>{{ledger.total_items|default:0}}</td>
+      <td>{{ ledger.total_amt|default:0|floatformat:2 }}</td>
+      <td>{{ledger.created_at}}</td>
+    </tr>
   {% endfor %}
-</ol>
+
+   
+  </tbody>
+
+</table>
 
 {% endblock %}

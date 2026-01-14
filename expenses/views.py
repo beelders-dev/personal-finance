@@ -7,6 +7,7 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django.db.models import Sum, F, Count, DecimalField
 
 from .models import ExpenseItem, Ledger
 from .forms import ExpenseItemForm
@@ -16,6 +17,15 @@ from .forms import ExpenseItemForm
 
 class Ledgers(ListView):
     model = Ledger
+
+    def get_queryset(self):
+        return Ledger.objects.annotate(
+            total_items=Count("items"),
+            total_amt=Sum(
+                F("items__qty") * F("items__price"),
+                output_field=DecimalField(max_digits=12, decimal_places=2),
+            ),  # double underscore is a lookup separator
+        )
 
 
 class LedgerDetailView(DetailView):
