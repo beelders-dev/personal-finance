@@ -1,11 +1,14 @@
-{% extends 'expenses/base.html' %} {% block content %}
-{% include 'expenses/partials/ledger_title.html' %}
-{{ledger}}
+{% extends "expenses/base.html" %} {% block content %} {% include "expenses/partials/ledger_title.html" %}
+
 <form action="" method="post" class="w-50">
   {% csrf_token %} {{ form.as_p }}
-  <input type="submit" class="btn btn-primary" value="{{ form.instance.pk|yesno:'Update,Add' }}" />
+ 
+  <input
+    type="submit"
+    class="btn btn-primary"
+    value="{{ form.instance.pk|yesno:'Update,Add' }}"
+  />
 
-
-  {% include 'expenses/partials/cancel.html' %}
+  {% include "expenses/partials/cancel.html" %}
 </form>
-{% endblock %}
+{% endblock content %}

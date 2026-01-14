@@ -1,22 +1,14 @@
-{% extends 'expenses/base.html' %} {% block content %}
-{% include 'expenses/partials/ledger_title.html' %}
+{% extends "expenses/base.html" %} {% block content %}
+{% include "expenses/partials/ledger_title.html" %}
 
-    <div class="container gap-3 ">
-        <div class="container gap-3 text-end">
-            <a href="{% url 'expenses:ledger_update' ledger.id %}" class="btn btn-primary">Edit preferences</a>
-            <a href="{% url 'expenses:ledger_delete' ledger.id %}" class="btn btn-danger">Delete this ledger</a>
-        </div>    
-    <div>
-
+<div class="container gap-3 ">
+    <div class="container gap-3 text-end">
+        <a href="{% url 'expenses:ledger_update' ledger.id %}" class="btn btn-primary">Edit preferences</a>
+        <a href="{% url 'expenses:ledger_delete' ledger.id %}" class="btn btn-danger">Delete this ledger</a>
+    </div>    
+</div>
 
 <a href="{% url 'expenses:add_item' ledger.id %}" class="btn btn-success">+ Add item</a>
-    {% include 'expenses/expenseitem_table.html' with expenseitem_list=ledger.items.all %} 
-    <a href="{% url 'expenses:ledgers' %}">Back</a>
-
-
-    
-
-
-
-
-{% endblock %}
+{% include "expenses/expenseitem_table.html" with expenseitem_list=ledger.items.all %} 
+<a href="{% url 'expenses:ledgers' %}">Back</a>
+{% endblock content%}
