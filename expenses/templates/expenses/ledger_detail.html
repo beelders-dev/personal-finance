@@ -2,7 +2,9 @@
 {% include 'expenses/partials/ledger_title.html' %}
 
 <a href="{% url 'expenses:add_item' ledger.id %}">+ Add item</a>
+<a href="{% url 'expenses:ledger_update' ledger.id %}">Edit preferences</a>
 <a href="{% url 'expenses:ledger_delete' ledger.id %}">Delete this ledger</a>
+
 {% include 'expenses/expenseitem_table.html' with expenseitem_list=ledger.items.all %} 
 <a href="{% url 'expenses:ledgers' %}">Back</a>
 {% endblock %}

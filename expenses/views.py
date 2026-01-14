@@ -48,6 +48,26 @@ class LedgerCreateView(CreateView):
         return reverse_lazy("expenses:ledgers")
 
 
+class LedgerUpdateView(UpdateView):
+    model = Ledger
+    fields = ["name"]
+    pk_url_kwarg = "ledger_id"
+
+    def get_queryset(self):
+        return Ledger.objects.annotate(
+            total_items=Count("items"),
+            total_amt=Sum(
+                F("items__qty") * F("items__price"),
+                output_field=DecimalField(max_digits=12, decimal_places=2),
+            ),  # double underscore is a lookup separator
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["ledger"] = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
+        return context
+
+
 class LedgerDeleteView(DeleteView):
     model = Ledger
     pk_url_kwarg = "ledger_id"
