@@ -30,7 +30,6 @@ class Ledgers(ListView):
 
 class LedgerDetailView(DetailView):
     model = Ledger
-    template_name = "expenses/ledger_detail.html"
     context_object_name = "ledger"
     pk_url_kwarg = "ledger_id"
 
@@ -52,6 +51,15 @@ class LedgerCreateView(CreateView):
 class LedgerDeleteView(DeleteView):
     model = Ledger
     pk_url_kwarg = "ledger_id"
+
+    def get_queryset(self):
+        return Ledger.objects.annotate(
+            total_items=Count("items"),
+            total_amt=Sum(
+                F("items__qty") * F("items__price"),
+                output_field=DecimalField(max_digits=12, decimal_places=2),
+            ),  # double underscore is a lookup separator
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
