@@ -49,6 +49,19 @@ class LedgerCreateView(CreateView):
         return reverse_lazy("expenses:ledgers")
 
 
+class LedgerDeleteView(DeleteView):
+    model = Ledger
+    pk_url_kwarg = "ledger_id"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["ledger"] = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy("expenses:ledgers")
+
+
 class ExpenseHomeView(ListView):
     model = ExpenseItem
     template_name = "expenses/expenses_home.html"

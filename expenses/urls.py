@@ -4,6 +4,7 @@ from .views import (
     LedgerCreateView,
     Ledgers,
     LedgerDetailView,
+    LedgerDeleteView,
     ExpenseCreateView,
     ExpenseUpdateView,
     ExpenseDeleteView,
@@ -31,4 +32,9 @@ urlpatterns = [
     path("ledgers/", Ledgers.as_view(), name="ledgers"),
     path("ledgers/create/", LedgerCreateView.as_view(), name="ledger_create"),
     path("ledgers/<int:ledger_id>/", LedgerDetailView.as_view(), name="ledger_detail"),
+    path(
+        "ledgers/<int:ledger_id>/delete",
+        LedgerDeleteView.as_view(),
+        name="ledger_delete",
+    ),
 ]
