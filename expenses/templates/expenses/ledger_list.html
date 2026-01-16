@@ -1,6 +1,6 @@
 {% extends 'expenses/base.html' %} {% block content %}
 
-<a href="{% url 'expenses:ledger_create' %}">Create Ledger</a>
+<a href="{% url 'expenses:ledger_create' %}" class="link-offset-2 link-underline link-underline-opacity-50">Create Ledger</a>
 
 <table class="table">
   <thead>
@@ -16,7 +16,7 @@
   {% for ledger in ledger_list %}
     <tr>
       <td>
-        <a href="{% url 'expenses:ledger_detail' ledger.id  %}">{{ ledger.name }}</a>
+        <a href="{% url 'expenses:ledger_detail' ledger.id  %}"class="link-offset-2 link-underline link-underline-opacity-50">{{ ledger.name }}</a>
       </td>
       <td>{{ledger.total_items|default:0}}</td>
       <td>{{ ledger.total_amt|default:0|floatformat:2 }}</td>
