@@ -15,7 +15,7 @@ from .forms import ExpenseItemForm, LedgerCreateForm
 # Create your views here.
 
 
-class Ledgers(ListView):
+class LedgerListView(ListView):
     model = Ledger
 
     def get_queryset(self):
