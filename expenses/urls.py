@@ -21,7 +21,7 @@ urlpatterns = [
         name="add_item",
     ),
     path(
-        "ledgers/<int:ledger_id>/items/<int:pk>/update",
+        "ledgers/<int:ledger_id>/items/<int:pk>/update/",
         ExpenseUpdateView.as_view(),
         name="expense_update",
     ),
@@ -34,10 +34,12 @@ urlpatterns = [
     path("ledgers/create/", LedgerCreateView.as_view(), name="ledger_create"),
     path("ledgers/<int:ledger_id>/", LedgerDetailView.as_view(), name="ledger_detail"),
     path(
-        "ledgers/<int:ledger_id>/edit", LedgerUpdateView.as_view(), name="ledger_update"
+        "ledgers/<int:ledger_id>/edit/",
+        LedgerUpdateView.as_view(),
+        name="ledger_update",
     ),
     path(
-        "ledgers/<int:ledger_id>/delete",
+        "ledgers/<int:ledger_id>/delete/",
         LedgerDeleteView.as_view(),
         name="ledger_delete",
     ),
