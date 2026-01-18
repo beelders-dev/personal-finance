@@ -91,9 +91,9 @@ class LedgerDeleteView(DeleteView):
         return reverse_lazy("expenses:ledgers")
 
 
-class ExpenseHomeView(ListView):
+class ExpenseListView(ListView):
     model = ExpenseItem
-    template_name = "expenses/expenses_home.html"
+    paginate_by = 5
 
 
 class ExpenseCreateView(CreateView):

@@ -1,11 +1,11 @@
 from django.urls import path
 from .views import (
-    ExpenseHomeView,
     LedgerListView,
     LedgerCreateView,
     LedgerUpdateView,
     LedgerDetailView,
     LedgerDeleteView,
+    ExpenseListView,
     ExpenseCreateView,
     ExpenseUpdateView,
     ExpenseDeleteView,
@@ -14,7 +14,7 @@ from .views import (
 app_name = "expenses"
 
 urlpatterns = [
-    path("", ExpenseHomeView.as_view(), name="home"),
+    # path("", ExpenseHomeView.as_view(), name="home"),
     path(
         "ledgers/<int:ledger_id>/items/add",
         ExpenseCreateView.as_view(),
