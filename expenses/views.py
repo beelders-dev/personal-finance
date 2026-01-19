@@ -49,9 +49,6 @@ class LedgerCreateView(CreateView):
     model = Ledger
     form_class = LedgerCreateForm
 
-    def get_success_url(self):
-        return reverse_lazy("expenses:ledgers")
-
 
 class LedgerUpdateView(UpdateView):
     model = Ledger

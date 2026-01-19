@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from django.core.validators import MinValueValidator
 
@@ -8,6 +9,9 @@ from django.core.validators import MinValueValidator
 class Ledger(models.Model):
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse("expenses:ledger_detail", kwargs={"ledger_id": self.pk})
 
     def __str__(self):
         return self.name
