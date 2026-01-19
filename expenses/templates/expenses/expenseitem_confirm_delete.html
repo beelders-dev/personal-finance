@@ -1,29 +1,30 @@
-{% extends 'expenses/base.html' %} {% block content %}
-<form action="" method="post">
-  {% csrf_token %}
-  <h2>Are you sure you want to delete</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <td>Date & Time Created</td>
-        <td>Name</td>
-        <td>Price</td>
-        <td>Qty</td>
-        <td>Amount</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ object.created_at }}</td>
-        <td>{{ object.name }}</td>
-        <td>{{ object.price }}</td>
-        <td>{{ object.qty }}</td>
-        <td>{{ object.total }}</td>
-      </tr>
-    </tbody>
-  </table>
-  {{ form }}
-  <input type="submit" value="Confirm" class="btn btn-primary"/>
-  {% include 'expenses/partials/cancel.html' %}
-</form>
-{% endblock %}
+{% extends "expenses/base.html" %}
+{% block content %}
+  <form action="" method="post">
+    {% csrf_token %}
+    <h2>Are you sure you want to delete</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Date & Time Created</td>
+          <td>Name</td>
+          <td>Price</td>
+          <td>Qty</td>
+          <td>Amount</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ object.created_at }}</td>
+          <td>{{ object.name }}</td>
+          <td>{{ object.price }}</td>
+          <td>{{ object.qty }}</td>
+          <td>{{ object.total }}</td>
+        </tr>
+      </tbody>
+    </table>
+    {{ form }}
+    <input type="submit" value="Confirm" class="btn btn-primary" />
+    {% include "expenses/partials/cancel.html" %}
+  </form>
+{% endblock content %}
