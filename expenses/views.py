@@ -51,41 +51,17 @@ class LedgerCreateView(CreateView):
 class LedgerUpdateView(UpdateView):
     model = Ledger
     form_class = LedgerCreateForm
-
     pk_url_kwarg = "ledger_id"
 
-    def get_queryset(self):
-        return Ledger.objects.annotate(
-            total_items=Count("items"),
-            total_amt=Sum(
-                F("items__qty") * F("items__price"),
-                output_field=DecimalField(max_digits=12, decimal_places=2),
-            ),  # double underscore is a lookup separator
+    def get_success_url(self):
+        return reverse_lazy(
+            "expenses:ledger_detail", kwargs={"ledger_id": self.kwargs["ledger_id"]}
         )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["ledger"] = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
-        return context
 
 
 class LedgerDeleteView(DeleteView):
     model = Ledger
     pk_url_kwarg = "ledger_id"
-
-    def get_queryset(self):
-        return Ledger.objects.annotate(
-            total_items=Count("items"),
-            total_amt=Sum(
-                F("items__qty") * F("items__price"),
-                output_field=DecimalField(max_digits=12, decimal_places=2),
-            ),  # double underscore is a lookup separator
-        )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["ledger"] = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
-        return context
 
     def get_success_url(self):
         return reverse_lazy("expenses:ledgers")
@@ -105,12 +81,6 @@ class ExpenseCreateView(CreateView):
         form.instance.ledger = ledger
         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["ledger"] = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
-
-        return context
-
     def get_success_url(self):
         return reverse_lazy(
             "expenses:ledger_detail", kwargs={"ledger_id": self.kwargs["ledger_id"]}
@@ -123,11 +93,6 @@ class ExpenseUpdateView(UpdateView):
 
     pk_url_kwarg = "pk"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["ledger"] = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
-        return context
-
     def get_success_url(self):
         return reverse_lazy(
             "expenses:ledger_detail", kwargs={"ledger_id": self.kwargs["ledger_id"]}
@@ -137,11 +102,6 @@ class ExpenseUpdateView(UpdateView):
 class ExpenseDeleteView(DeleteView):
     model = ExpenseItem
     pk_url_kwarg = "pk"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["ledger"] = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
-        return context
 
     def get_success_url(self):
         return reverse_lazy(
