@@ -1,4 +1,5 @@
 <!-- Cancel button back to the Ledger -->
+{{ ledger.id }}
 {% if ledger.id %}
     <a href="{% url 'expenses:ledger_detail' ledger.id %}"
        class="btn btn-warning">Cancel</a>
