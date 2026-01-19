@@ -14,7 +14,11 @@ from .views import (
 app_name = "expenses"
 
 urlpatterns = [
-    # path("", ExpenseHomeView.as_view(), name="home"),
+    path(
+        "",
+        ExpenseListView.as_view(),
+        name="add_item",
+    ),
     path(
         "ledgers/<int:ledger_id>/items/add",
         ExpenseCreateView.as_view(),

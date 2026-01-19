@@ -8,6 +8,7 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.db.models import Sum, F, Count, DecimalField
+from django.core.paginator import Paginator
 
 from .models import ExpenseItem, Ledger
 from .forms import ExpenseItemForm, LedgerCreateForm
@@ -35,7 +36,11 @@ class LedgerDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["items"] = self.object.items.all()
+        raw_items = self.object.items.all().order_by("id")
+        paginator = Paginator(raw_items, 5)
+        page_number = self.request.GET.get("page")
+
+        context["expenseitem_list"] = paginator.get_page(page_number)
 
         return context
 
@@ -69,7 +74,19 @@ class LedgerDeleteView(DeleteView):
 
 class ExpenseListView(ListView):
     model = ExpenseItem
+    template_name = "expenses/expenseitem_list.html"
     paginate_by = 5
+
+    def get_queryset(self):
+        return ExpenseItem.objects.filter(ledger_id=self.kwargs["ledger_id"]).order_by(
+            "-id"
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["ledger"] = get_object_or_404(Ledger, id=self.kwargs["ledger_id"])
+        return context
 
 
 class ExpenseCreateView(CreateView):
