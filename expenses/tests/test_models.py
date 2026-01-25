@@ -13,12 +13,13 @@ class LedgerModelTest(TestCase):
         self.assertEqual(str(self.ledger), "Supermarket")
 
 
-# class ExpenseItemTest(TestCase):
+class ExpenseItemTest(TestCase):
 
-#     @classmethod
-#     def setUpTestData(cls):
-#         cls.expense_item = ExpenseItem.objects.create(
-#             name="Banana", qty="12", price="50.00"
-#         )
+    # @classmethod
+    # def setUpTestData(cls):
+    #     cls.expense_item = ExpenseItem.objects.create(name="Banana", price=30, qty=12)
 
-#     def test_
+    def test_amt_calculates_correctly_for_positive_integers(self):
+        """Test that the amt function returns the correct calculation."""
+        item = ExpenseItem(price=30, qty=12)
+        self.assertEqual(item.amt, 360)
